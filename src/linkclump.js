@@ -282,11 +282,18 @@ function start() {
 
 		// attempt to ignore invisible links (can't ignore overflow)
 		var comp = window.getComputedStyle(page_links[i], null);
-		if (comp.visibility == 'hidden' || comp.display == 'none') {
-			continue outerloop;
-		}
+		//if (comp.visibility == 'hidden' || comp.display == 'none') {
+		//	continue outerloop;
+		//}
 
 		var pos = this.getXY(page_links[i])
+		// hidden link deal
+		var anchor_parent = page_links[i];
+		while (pos.x == 0 && pos.y == 0 && anchor_parent != document.body)
+		{
+			anchor_parent = anchor_parent.parentNode;
+			pos = this.getXY(anchor_parent)
+		}
 		var width = page_links[i].offsetWidth
 		var height = page_links[i].offsetHeight
 
